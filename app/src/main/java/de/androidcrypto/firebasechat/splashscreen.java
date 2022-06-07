@@ -1,4 +1,4 @@
-package com.example.mychatapptutorial;
+package de.androidcrypto.firebasechat;
 
 import androidx.appcompat.app.AppCompatActivity;
 

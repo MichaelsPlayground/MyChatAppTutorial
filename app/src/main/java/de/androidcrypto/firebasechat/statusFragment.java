@@ -1,4 +1,4 @@
-package com.example.mychatapptutorial;
+package de.androidcrypto.firebasechat;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,11 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class callFragment extends Fragment {
+public class statusFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.callfragment,null);
+        return inflater.inflate(R.layout.statusfragment,null);
     }
 }
