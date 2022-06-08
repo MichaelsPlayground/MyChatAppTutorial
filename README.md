@@ -2,7 +2,37 @@
 
 Source: https://github.com/Brijesh-kumar-sharma/chatAppInAndroidStudio
 
+This is an advanced version that uses not only phone auth but email auth as well
 
+Wichtig: da die Datenbank nicht im Standard-Land = USA liegt sondern in Europa, 
+ist ein besonderer Verweis darauf notwendig:
+
+https://androidfirebasechat-10c96-default-rtdb.europe-west1.firebasedatabase.app/
+
+z.B. in specificchat.java:
+
+firebaseDatabase=FirebaseDatabase.getInstance("https://androidfirebasechat-10c96-default-rtdb.europe-west1.firebasedatabase.app/");
+
+Achtung:
+
+
+```plaintext
+{
+  "rules": {
+    ".read": "now < 1657231200000",  // 2022-7-8
+    ".write": "now < 1657231200000",  // 2022-7-8
+  }
+}
+```
+
+```plaintext
+{
+  "rules": {
+    ".read": "auth.uid != null",
+       ".write": "auth.uid != null"
+  }
+}
+```
 
 This chat app is created in android studio using java and firebase
 Some of the Output screens

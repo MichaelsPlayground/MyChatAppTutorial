@@ -55,15 +55,6 @@ public class setProfile extends AppCompatActivity {
 
     ProgressBar mprogressbarofsetprofile;
 
-
-
-
-
-
-
-
-    
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,13 +65,11 @@ public class setProfile extends AppCompatActivity {
         storageReference=firebaseStorage.getReference();
         firebaseFirestore=FirebaseFirestore.getInstance();
 
-
         mgetusername=findViewById(R.id.getusername);
         mgetuserimage=findViewById(R.id.getuserimage);
         mgetuserimageinimageview=findViewById(R.id.getuserimageinimageview);
         msaveprofile=findViewById(R.id.saveProfile);
         mprogressbarofsetprofile=findViewById(R.id.progressbarofsetProfile);
-
 
         mgetuserimage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +78,6 @@ public class setProfile extends AppCompatActivity {
                 startActivityForResult(intent,PICK_IMAGE);
             }
         });
-
 
         msaveprofile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,59 +93,40 @@ public class setProfile extends AppCompatActivity {
                 }
                 else
                 {
-
                     mprogressbarofsetprofile.setVisibility(View.VISIBLE);
                     sendDataForNewUser();
                     mprogressbarofsetprofile.setVisibility(View.INVISIBLE);
                     Intent intent=new Intent(setProfile.this,chatActivity.class);
                     startActivity(intent);
                     finish();
-
-
                 }
             }
         });
-
-
-
-
-
-
     }
-
 
     private void sendDataForNewUser()
     {
-
         sendDataToRealTimeDatabase();
-
     }
 
     private void sendDataToRealTimeDatabase()
     {
-
-
         name=mgetusername.getText().toString().trim();
-        FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
+        FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance("https://androidfirebasechat-10c96-default-rtdb.europe-west1.firebasedatabase.app/");
         DatabaseReference databaseReference=firebaseDatabase.getReference(firebaseAuth.getUid());
 
         userprofile muserprofile=new userprofile(name,firebaseAuth.getUid());
         databaseReference.setValue(muserprofile);
         Toast.makeText(getApplicationContext(),"User Profile Added Sucessfully",Toast.LENGTH_SHORT).show();
         sendImagetoStorage();
-
-
-
-
+        //sendDataTocloudFirestore();
     }
+
 
     private void sendImagetoStorage()
     {
-
         StorageReference imageref=storageReference.child("Images").child(firebaseAuth.getUid()).child("Profile Pic");
-
-        //Image compresesion
-
+        //Image compression
         Bitmap bitmap=null;
         try {
             bitmap= MediaStore.Images.Media.getBitmap(getContentResolver(),imagepath);
@@ -191,8 +160,6 @@ public class setProfile extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(getApplicationContext(),"URI get Failed",Toast.LENGTH_SHORT).show();
                     }
-
-
                 });
                 Toast.makeText(getApplicationContext(),"Image is uploaded",Toast.LENGTH_SHORT).show();
 
@@ -200,18 +167,12 @@ public class setProfile extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(),"Image Not UPdloaded",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Image Not Uploaded",Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
-
-
     }
 
     private void sendDataTocloudFirestore() {
-
 
         DocumentReference documentReference=firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
         Map<String , Object> userdata=new HashMap<>();
@@ -224,14 +185,9 @@ public class setProfile extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(getApplicationContext(),"Data on Cloud Firestore send success",Toast.LENGTH_SHORT).show();
-
             }
         });
-
-
-
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -241,14 +197,6 @@ public class setProfile extends AppCompatActivity {
             imagepath=data.getData();
             mgetuserimageinimageview.setImageURI(imagepath);
         }
-
-
-
-
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-
-
-
 }

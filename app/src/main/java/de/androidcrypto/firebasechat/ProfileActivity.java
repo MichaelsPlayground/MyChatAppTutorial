@@ -61,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
         firebaseFirestore=FirebaseFirestore.getInstance();
         mtoolbarofviewprofile=findViewById(R.id.toolbarofviewprofile);
         mbackbuttonofviewprofile=findViewById(R.id.backbuttonofviewprofile);
-        firebaseDatabase=FirebaseDatabase.getInstance();
+        firebaseDatabase=FirebaseDatabase.getInstance("https://androidfirebasechat-10c96-default-rtdb.europe-west1.firebasedatabase.app/");
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseStorage=FirebaseStorage.getInstance();
 
