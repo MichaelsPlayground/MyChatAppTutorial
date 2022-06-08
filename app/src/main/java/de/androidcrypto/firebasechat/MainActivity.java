@@ -38,23 +38,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mcountrycodepicker=findViewById(R.id.countrycodepicker);
-        msendotp=findViewById(R.id.sendotpbutton);
+        mcountrycodepicker = findViewById(R.id.countrycodepicker);
+        msendotp = findViewById(R.id.sendotpbutton);
         signUp = findViewById(R.id.signupbutton);
         logIn = findViewById(R.id.loginbutton);
         signUpIntent = new Intent(MainActivity.this, SignUpActivity.class);
         logInIntent = new Intent(MainActivity.this, LogInActivity.class);
-        mgetphonenumber=findViewById(R.id.getphonenumber);
-        mprogressbarofmain=findViewById(R.id.progressbarofmain);
+        mgetphonenumber = findViewById(R.id.getphonenumber);
+        mprogressbarofmain = findViewById(R.id.progressbarofmain);
 
-        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         countrycode=mcountrycodepicker.getSelectedCountryCodeWithPlus();
 
         mcountrycodepicker.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
             @Override
             public void onCountrySelected() {
-                countrycode=mcountrycodepicker.getSelectedCountryCodeWithPlus();
+                countrycode = mcountrycodepicker.getSelectedCountryCodeWithPlus();
             }
         });
 
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String number;
-                number=mgetphonenumber.getText().toString();
+                number = mgetphonenumber.getText().toString();
                 if(number.isEmpty())
                 {
                     Toast.makeText(getApplicationContext(),"Please Enter YOur number",Toast.LENGTH_SHORT).show();

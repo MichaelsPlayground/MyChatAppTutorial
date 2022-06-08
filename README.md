@@ -11,7 +11,7 @@ https://androidfirebasechat-10c96-default-rtdb.europe-west1.firebasedatabase.app
 
 z.B. in specificchat.java:
 
-firebaseDatabase=FirebaseDatabase.getInstance("https://androidfirebasechat-10c96-default-rtdb.europe-west1.firebasedatabase.app/");
+firebaseDatabase = FirebaseDatabase.getInstance("https://androidfirebasechat-10c96-default-rtdb.europe-west1.firebasedatabase.app/");
 
 Achtung:
 
@@ -35,6 +35,7 @@ Achtung:
 ```
 
 This chat app is created in android studio using java and firebase
+
 Some of the Output screens
 ![image](https://user-images.githubusercontent.com/64765400/119440006-5a5e0100-bcd8-11eb-88fb-0712bb223f78.png)
 

@@ -74,7 +74,7 @@ public class setProfile extends AppCompatActivity {
         mgetuserimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                 startActivityForResult(intent,PICK_IMAGE);
             }
         });
@@ -82,12 +82,12 @@ public class setProfile extends AppCompatActivity {
         msaveprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                name=mgetusername.getText().toString();
+                name = mgetusername.getText().toString();
                 if(name.isEmpty())
                 {
                     Toast.makeText(getApplicationContext(),"Name is Empty",Toast.LENGTH_SHORT).show();
                 }
-                else if(imagepath==null)
+                else if(imagepath == null)
                 {
                     Toast.makeText(getApplicationContext(),"Image is Empty",Toast.LENGTH_SHORT).show();
                 }
@@ -96,7 +96,7 @@ public class setProfile extends AppCompatActivity {
                     mprogressbarofsetprofile.setVisibility(View.VISIBLE);
                     sendDataForNewUser();
                     mprogressbarofsetprofile.setVisibility(View.INVISIBLE);
-                    Intent intent=new Intent(setProfile.this,chatActivity.class);
+                    Intent intent = new Intent(setProfile.this,chatActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -112,10 +112,10 @@ public class setProfile extends AppCompatActivity {
     private void sendDataToRealTimeDatabase()
     {
         name=mgetusername.getText().toString().trim();
-        FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance("https://androidfirebasechat-10c96-default-rtdb.europe-west1.firebasedatabase.app/");
-        DatabaseReference databaseReference=firebaseDatabase.getReference(firebaseAuth.getUid());
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://androidfirebasechat-10c96-default-rtdb.europe-west1.firebasedatabase.app/");
+        DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());
 
-        userprofile muserprofile=new userprofile(name,firebaseAuth.getUid());
+        userprofile muserprofile = new userprofile(name,firebaseAuth.getUid());
         databaseReference.setValue(muserprofile);
         Toast.makeText(getApplicationContext(),"User Profile Added Sucessfully",Toast.LENGTH_SHORT).show();
         sendImagetoStorage();
@@ -129,16 +129,16 @@ public class setProfile extends AppCompatActivity {
         //Image compression
         Bitmap bitmap=null;
         try {
-            bitmap= MediaStore.Images.Media.getBitmap(getContentResolver(),imagepath);
+            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imagepath);
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
 
-        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG,25,byteArrayOutputStream);
-        byte[] data=byteArrayOutputStream.toByteArray();
+        byte[] data = byteArrayOutputStream.toByteArray();
 
         ///putting image to storage
 
