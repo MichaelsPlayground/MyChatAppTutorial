@@ -7,10 +7,8 @@ public class Messages {
     long timestamp;
     String currenttime;
 
-
     public Messages() {
     }
-
 
     public Messages(String message, String senderId, long timestamp, String currenttime) {
         this.message = message;

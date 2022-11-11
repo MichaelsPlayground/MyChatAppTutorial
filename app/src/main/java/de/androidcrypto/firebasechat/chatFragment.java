@@ -28,14 +28,9 @@ public class chatFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     LinearLayoutManager linearLayoutManager;
     private FirebaseAuth firebaseAuth;
-
     ImageView mimageviewofuser;
-
     FirestoreRecyclerAdapter<firebasemodel,NoteViewHolder> chatAdapter;
-
     RecyclerView mrecyclerview;
-
-
 
     @Nullable
     @Override
@@ -45,7 +40,6 @@ public class chatFragment extends Fragment {
        firebaseAuth=FirebaseAuth.getInstance();
        firebaseFirestore= FirebaseFirestore.getInstance();
        mrecyclerview=v.findViewById(R.id.recyclerview);
-
 
        // Query query=firebaseFirestore.collection("Users");
         Query query=firebaseFirestore.collection("Users").whereNotEqualTo("uid",firebaseAuth.getUid());
@@ -79,9 +73,6 @@ public class chatFragment extends Fragment {
                         startActivity(intent);
                     }
                 });
-
-
-
             }
 
             @NonNull
@@ -93,25 +84,16 @@ public class chatFragment extends Fragment {
             }
         };
 
-
         mrecyclerview.setHasFixedSize(true);
         linearLayoutManager=new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         mrecyclerview.setLayoutManager(linearLayoutManager);
         mrecyclerview.setAdapter(chatAdapter);
-
-
         return v;
-
-
-
-
     }
-
 
     public class NoteViewHolder extends RecyclerView.ViewHolder
     {
-
         private TextView particularusername;
         private TextView statusofuser;
 
@@ -120,10 +102,6 @@ public class chatFragment extends Fragment {
             particularusername=itemView.findViewById(R.id.nameofuser);
             statusofuser=itemView.findViewById(R.id.statusofuser);
             mimageviewofuser=itemView.findViewById(R.id.imageviewofuser);
-
-
-
-
         }
     }
 

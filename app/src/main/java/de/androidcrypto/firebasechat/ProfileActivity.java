@@ -28,7 +28,6 @@ import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
 
-
     EditText mviewusername;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
@@ -45,10 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar mtoolbarofviewprofile;
     ImageButton mbackbuttonofviewprofile;
 
-
     FirebaseStorage firebaseStorage;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +57,9 @@ public class ProfileActivity extends AppCompatActivity {
         firebaseFirestore=FirebaseFirestore.getInstance();
         mtoolbarofviewprofile=findViewById(R.id.toolbarofviewprofile);
         mbackbuttonofviewprofile=findViewById(R.id.backbuttonofviewprofile);
-        firebaseDatabase=FirebaseDatabase.getInstance();
+        firebaseDatabase=FirebaseDatabase.getInstance("https://androidfirebasechat-10c96-default-rtdb.europe-west1.firebasedatabase.app/");
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseStorage=FirebaseStorage.getInstance();
-
 
         setSupportActionBar(mtoolbarofviewprofile);
 
@@ -101,7 +96,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-
         mmovetoupdateprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,12 +104,7 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
     }
-
 
     @Override
     protected void onStop() {
@@ -127,9 +116,6 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Now User is Offline",Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
 
     @Override
@@ -142,6 +128,5 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Now User is Online",Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }

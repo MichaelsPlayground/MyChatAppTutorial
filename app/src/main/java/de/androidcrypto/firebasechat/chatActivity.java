@@ -20,7 +20,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-
 public class chatActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
@@ -30,11 +29,7 @@ public class chatActivity extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar mtoolbar;
 
     FirebaseAuth firebaseAuth;
-
-
     FirebaseFirestore firebaseFirestore;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +48,8 @@ public class chatActivity extends AppCompatActivity {
         mtoolbar=findViewById(R.id.toolbar);
         setSupportActionBar(mtoolbar);
 
-
         Drawable drawable= ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_baseline_more_vert_24);
         mtoolbar.setOverflowIcon(drawable);
-
 
         pagerAdapter=new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
@@ -70,9 +63,6 @@ public class chatActivity extends AppCompatActivity {
                 {
                     pagerAdapter.notifyDataSetChanged();
                 }
-
-
-
             }
 
             @Override
@@ -86,12 +76,8 @@ public class chatActivity extends AppCompatActivity {
             }
         });
 
-
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-
     }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -104,11 +90,14 @@ public class chatActivity extends AppCompatActivity {
                 break;
 
             case R.id.settings:
-                Toast.makeText(getApplicationContext(),"Settign is clicked",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Setting is clicked",Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.menueLogOut:
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(getApplicationContext(),"User is loged out",Toast.LENGTH_SHORT).show();
                 break;
         }
-
-
 
         return  true;
     }
@@ -116,11 +105,8 @@ public class chatActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater menuInflater=getMenuInflater();
         menuInflater.inflate(R.menu.menu,menu);
-
-
         return true;
     }
 
@@ -134,9 +120,6 @@ public class chatActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Now User is Offline",Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
 
     @Override
@@ -149,6 +132,5 @@ public class chatActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Now User is Online",Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }

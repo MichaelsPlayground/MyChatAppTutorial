@@ -29,9 +29,6 @@ public class otpAuthentication extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     ProgressBar mprogressbarofotpauth;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +45,6 @@ public class otpAuthentication extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(otpAuthentication.this,MainActivity.class);
-
                 startActivity(intent);
             }
         });
@@ -72,9 +68,6 @@ public class otpAuthentication extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
 
 

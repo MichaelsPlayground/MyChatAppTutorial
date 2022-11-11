@@ -82,9 +82,6 @@ public class specificchat extends AppCompatActivity {
         messagesAdapter=new MessagesAdapter(specificchat.this,messagesArrayList);
         mmessagerecyclerview.setAdapter(messagesAdapter);
 
-
-
-
         intent=getIntent();
 
         setSupportActionBar(mtoolbarofspecificchat);
@@ -92,27 +89,20 @@ public class specificchat extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"Toolbar is Clicked",Toast.LENGTH_SHORT).show();
-
-
             }
         });
 
         firebaseAuth=FirebaseAuth.getInstance();
-        firebaseDatabase=FirebaseDatabase.getInstance();
+        firebaseDatabase=FirebaseDatabase.getInstance("https://androidfirebasechat-10c96-default-rtdb.europe-west1.firebasedatabase.app/");
         calendar=Calendar.getInstance();
         simpleDateFormat=new SimpleDateFormat("hh:mm a");
-
 
         msenderuid=firebaseAuth.getUid();
         mrecieveruid=getIntent().getStringExtra("receiveruid");
         mrecievername=getIntent().getStringExtra("name");
 
-
-
         senderroom=msenderuid+mrecieveruid;
         recieverroom=mrecieveruid+msenderuid;
-
-
 
         DatabaseReference databaseReference=firebaseDatabase.getReference().child("chats").child(senderroom).child("messages");
         messagesAdapter=new MessagesAdapter(specificchat.this,messagesArrayList);
@@ -134,9 +124,6 @@ public class specificchat extends AppCompatActivity {
             }
         });
 
-
-
-
         mbackbuttonofspecificchat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,18 +131,17 @@ public class specificchat extends AppCompatActivity {
             }
         });
 
-
         mnameofspecificuser.setText(mrecievername);
         String uri=intent.getStringExtra("imageuri");
-        if(uri.isEmpty())
-        {
+        if (uri == null) {
             Toast.makeText(getApplicationContext(),"null is recieved",Toast.LENGTH_SHORT).show();
+        } else {
+            if (uri.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "null is recieved", Toast.LENGTH_SHORT).show();
+            } else {
+                Picasso.get().load(uri).into(mimageviewofspecificuser);
+            }
         }
-        else
-        {
-            Picasso.get().load(uri).into(mimageviewofspecificuser);
-        }
-
 
         msendmessagebutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,14 +152,17 @@ public class specificchat extends AppCompatActivity {
                 {
                     Toast.makeText(getApplicationContext(),"Enter message first",Toast.LENGTH_SHORT).show();
                 }
-
                 else
-
                 {
+                    System.out.println("*** enteredMessage pressed ***");
+                    System.out.println("*** senderroom: " + senderroom + " name: " + sendername);
+                    System.out.println("*** recieverroom: " + recieverroom + " name: " + mrecievername);
+                    System.out.println("*** enteredMessage: " + enteredmessage);
+                    System.out.println("*** uid: " + firebaseAuth.getUid());
                     Date date=new Date();
                     currenttime=simpleDateFormat.format(calendar.getTime());
                     Messages messages=new Messages(enteredmessage,firebaseAuth.getUid(),date.getTime(),currenttime);
-                    firebaseDatabase=FirebaseDatabase.getInstance();
+                    firebaseDatabase=FirebaseDatabase.getInstance("https://androidfirebasechat-10c96-default-rtdb.europe-west1.firebasedatabase.app/");
                     firebaseDatabase.getReference().child("chats")
                             .child(senderroom)
                             .child("messages")
@@ -195,23 +184,10 @@ public class specificchat extends AppCompatActivity {
                     });
 
                     mgetmessage.setText(null);
-
-
-
-
                 }
-
-
-
-
             }
         });
-
-
-
-
     }
-
 
     @Override
     public void onStart() {
@@ -227,7 +203,4 @@ public class specificchat extends AppCompatActivity {
             messagesAdapter.notifyDataSetChanged();
         }
     }
-
-
-
 }

@@ -21,18 +21,15 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
     EditText mgetphonenumber;
-    android.widget.Button msendotp;
+    android.widget.Button msendotp, signUp, logIn;
+    Intent signUpIntent, logInIntent;
     CountryCodePicker mcountrycodepicker;
     String countrycode;
     String phonenumber;
 
     FirebaseAuth firebaseAuth;
     ProgressBar mprogressbarofmain;
-
-
 
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     String codesent;
@@ -41,19 +38,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mcountrycodepicker=findViewById(R.id.countrycodepicker);
-        msendotp=findViewById(R.id.sendotpbutton);
-        mgetphonenumber=findViewById(R.id.getphonenumber);
-        mprogressbarofmain=findViewById(R.id.progressbarofmain);
+        mcountrycodepicker = findViewById(R.id.countrycodepicker);
+        msendotp = findViewById(R.id.sendotpbutton);
+        signUp = findViewById(R.id.signupbutton);
+        logIn = findViewById(R.id.loginbutton);
+        signUpIntent = new Intent(MainActivity.this, SignUpActivity.class);
+        logInIntent = new Intent(MainActivity.this, LogInActivity.class);
+        mgetphonenumber = findViewById(R.id.getphonenumber);
+        mprogressbarofmain = findViewById(R.id.progressbarofmain);
 
-        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         countrycode=mcountrycodepicker.getSelectedCountryCodeWithPlus();
 
         mcountrycodepicker.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
             @Override
             public void onCountrySelected() {
-                countrycode=mcountrycodepicker.getSelectedCountryCodeWithPlus();
+                countrycode = mcountrycodepicker.getSelectedCountryCodeWithPlus();
             }
         });
 
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String number;
-                number=mgetphonenumber.getText().toString();
+                number = mgetphonenumber.getText().toString();
                 if(number.isEmpty())
                 {
                     Toast.makeText(getApplicationContext(),"Please Enter YOur number",Toast.LENGTH_SHORT).show();
@@ -72,29 +73,32 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-
                     mprogressbarofmain.setVisibility(View.VISIBLE);
                     phonenumber=countrycode+number;
-
                     PhoneAuthOptions options=PhoneAuthOptions.newBuilder(firebaseAuth)
                             .setPhoneNumber(phonenumber)
                             .setTimeout(60L, TimeUnit.SECONDS)
                             .setActivity(MainActivity.this)
                             .setCallbacks(mCallbacks)
                             .build();
-
-
                     PhoneAuthProvider.verifyPhoneNumber(options);
-
-
-
                 }
-
-
             }
         });
 
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(signUpIntent);
+            }
+        });
 
+        logIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(logInIntent);
+            }
+        });
 
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
@@ -107,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-
             @Override
             public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                 super.onCodeSent(s, forceResendingToken);
@@ -119,11 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         };
-
-
-
     }
-
 
     @Override
     protected void onStart() {
@@ -134,11 +133,5 @@ public class MainActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
-
-
-
-
-
-
     }
 }
