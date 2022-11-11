@@ -2,7 +2,7 @@
 
 Source: https://github.com/Brijesh-kumar-sharma/chatAppInAndroidStudio
 
-
+This app is using the One Timpe Token send via SMS to a phone number
 
 This chat app is created in android studio using java and firebase
 Some of the Output screens
